@@ -1,0 +1,13 @@
+.tmp
+node_modules
+build
+bundle
+kepler-build
+*.swp
+.idea
+.vscode
+socketdir*
+generated
+logs
+.DS_Store
+buildinfo.json

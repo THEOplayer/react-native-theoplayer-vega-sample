@@ -1,0 +1,202 @@
+#
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: MIT-0
+#
+schema-version = 1                              # [required] Schema version used in the manifest file. Currently, value must be 1
+
+[package]
+title = "THEOplayer Vega Demo"                  # [required] Human readable title of the app.
+version = "0.1.0"                               # [required] Version string of the app, recommended to use semver, but any other string may be used.
+id = "com.amazondeveloper.theovegademo"         # [required] Package identifier, used as a primary identifier for the app on Vega devices and Appstore.
+                                                #            Existing FireTV app developers with apps on FireOS devices
+                                                #            must reuse their existing application id to ensure existing
+                                                #            Amazon integrations, viz. IAP, continue to work.
+icon = "@image/app_icon.png"                    # [required] Image file to be used as the icon for the app.
+
+## ------------------------------------------------------------------------------
+## The [components] section declares the application components in the package, including interactive, service, and task components.
+## ------------------------------------------------------------------------------
+[components]
+
+[[components.interactive]]
+id = "com.amazondeveloper.theovegademo.main"    # [required] Unique component identifier
+runtime-module = "/com.amazon.kepler.keplerscript.runtime.loader_2@IKeplerScript_2_0"
+launch-type = "singleton"                       # [optional] Declares that only one running instance of this app component is created,
+                                                #            new invocations always reference the existing instance.
+categories = [
+    "com.amazon.category.main",                 # [required] Category declaration to annotate
+                                                #            this component as the main launchable component for the app.
+                                                #            App launches from Launcher and Appstore will leverage this
+                                                #            category to launch this specific interactive component.
+
+    "com.amazon.category.kepler.media"          # [optional] This is an optional category, required for media account
+                                                #            integration. The component tagged with this category, should
+                                                #            be the main component, and referenced later in the [extras].
+]
+
+## ------------------------------------------------------------------------------
+## End of [components] section
+## ------------------------------------------------------------------------------
+
+## ------------------------------------------------------------------------------
+## The [processes] section describes which components in the package should run within a shared process when launched. This section is optional.
+## ------------------------------------------------------------------------------
+[processes]
+
+[[processes.group]]                                                                     # [required] Run the required service within a different process.
+component-ids = ["com.amazondeveloper.theovegademo.main"]                               # [required] Declares the app components that run within this process together.
+
+## ------------------------------------------------------------------------------
+## End of [processes] section
+## ------------------------------------------------------------------------------
+
+## ------------------------------------------------------------------------------
+## The [wants] section declares the capabilities that are optional for the application to function on a Vega device. Handle graceful fallbacks in your application code if a feature in this list is unavailable on a device.
+## ------------------------------------------------------------------------------
+[wants]
+
+[[wants.service]]
+id = "com.amazon.inputmethod.service"
+
+[[wants.service]]
+id = "com.amazon.kepler.pcon.service.main"
+
+# ------------------------------------------------------------------------------
+# MediaPlayer/MediaTransform
+# ------------------------------------------------------------------------------
+[[wants.service]]
+id = "com.amazon.media.server"
+
+[[wants.service]]
+id = "com.amazon.mediametrics.service"
+
+# ------------------------------------------------------------------------------
+# Required for GIPC SR? it's for audio video playback
+# ------------------------------------------------------------------------------
+[[wants.service]]
+id = "com.amazon.gipc.uuid.*"
+
+# ------------------------------------------------------------------------------
+# Accessibility
+# ------------------------------------------------------------------------------
+[[wants.privilege]]
+id = "com.amazon.devconf.privilege.accessibility"
+
+# ------------------------------------------------------------------------------
+# MediaPlayer/MediaTransform
+# ------------------------------------------------------------------------------
+[[wants.service]]
+id = "com.amazon.media.server"
+
+[[wants.service]]
+id = "com.amazon.mediametrics.service"
+
+# ------------------------------------------------------------------------------
+# Remote button events.
+# ------------------------------------------------------------------------------
+[[wants.service]]
+id = "com.amazon.inputd.service"
+
+# ------------------------------------------------------------------------------
+# MediaControls
+# ------------------------------------------------------------------------------
+[[wants.service]]
+id = "com.amazon.media.playersession.service"
+
+[[wants.service]]
+id = "com.amazon.mediabuffer.service"
+
+[[wants.service]]
+id = "com.amazon.mediatransform.service"
+
+# ------------------------------------------------------------------------------
+# Audio stream
+# ------------------------------------------------------------------------------
+[[wants.service]]
+id = "com.amazon.audio.stream"
+
+# ------------------------------------------------------------------------------
+# Volume and other audio controls
+# ------------------------------------------------------------------------------
+[[wants.service]]
+id = "com.amazon.audio.control"
+
+# ------------------------------------------------------------------------------
+# Volume and other audio controls
+# ------------------------------------------------------------------------------
+[[wants.service]]
+id = "com.amazon.audio.system"
+
+# ------------------------------------------------------------------------------
+# Network information
+# ------------------------------------------------------------------------------
+[[wants.service]]
+id = "com.amazon.network.service"
+
+# ------------------------------------------------------------------------------
+# DRM video playback
+# ------------------------------------------------------------------------------
+[[wants.service]]
+id = "com.amazon.drm.key"
+
+[[wants.service]]
+id = "com.amazon.drm.crypto"
+
+## ------------------------------------------------------------------------------
+## End of [wants] section.
+## ------------------------------------------------------------------------------
+
+## ------------------------------------------------------------------------------
+## The [needs] section declares the system capabilities that the application requires to function on a Vega device. This information helps Vega package manager and Amazon Appstore to ensure the application is installed on the supported devices. Carefully declare the application's needs for your desired device targeting. You can choose a combination of needs and wants to maximize your device reach, while providing enhanced features on applicable devices.
+## ------------------------------------------------------------------------------
+[needs]
+
+# ------------------------------------------------------------------------------
+# Audio
+# ------------------------------------------------------------------------------
+[[needs.privilege]]
+id = "com.amazon.media.secureplayback"
+
+# ------------------------------------------------------------------------------
+# DRM video playback
+# ------------------------------------------------------------------------------
+[[needs.privilege]]
+id = "com.amazon.privilege.security.file-sharing"
+
+## ------------------------------------------------------------------------------
+## End of [needs] section
+## ------------------------------------------------------------------------------
+
+## ------------------------------------------------------------------------------
+## The [offers] section declares the capabilities that an application package offers to other application packages installed on a Vega OS. Offers is an optional section.
+## ------------------------------------------------------------------------------
+[offers]
+
+[[offers.service]]
+id = "com.amazon.gipc.uuid.*"
+
+## ------------------------------------------------------------------------------
+## The [[extras]] section contains key-value pairs to describe custom configuration entries, required by certain Amazon feature integrations.
+## ------------------------------------------------------------------------------
+[[extras]]
+key = "interface.provider"                                  # `interface.provider` designates a component that provides implementation of certain interfaces
+                                                            #   These app provided interfaces implement required functions to provide data for Amazon service
+                                                            #   integrations. They may also register listeners for event callbacks.
+component-id = "com.amazondeveloper.theovegademo.main"      # Declares the component that provides the implementation of the interfaces.
+
+# ------------------------------------------------------------------------------
+# Vega Media Controls (VMC)
+# ------------------------------------------------------------------------------
+[[extras.value.application.interface]]
+interface_name = "com.amazon.kepler.media.IMediaPlaybackServer"
+command_options = [
+    "Play",
+    "Pause",
+    "StartOver",
+    "Previous",
+    "Next",
+    "SkipForward",
+    "SkipBackward",
+]
+attribute_options = ["AudioAdvanceMuted"]
+features = ["AdvancedSeek", "VariableSpeed", "AudioTracks", "TextTracks"]

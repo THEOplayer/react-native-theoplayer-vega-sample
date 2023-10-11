@@ -1,0 +1,116 @@
+import React, {useState} from 'react';
+import {StyleSheet, TextStyle, View} from 'react-native';
+import {StackScreenProps} from '@amazon-devices/react-navigation__stack';
+import {AppStackParamList, Screens} from '../navigation/nagivation';
+import {
+  PlayerConfiguration,
+  PlayerEventType,
+  THEOplayer,
+  sdkVersions,
+  THEOplayerView,
+} from '@theoplayer/react-native-vega';
+import {
+  AutoFocusGuide,
+  CenteredControlBar,
+  CenteredDelayedActivityIndicator,
+  ControlBar,
+  DEFAULT_THEOPLAYER_THEME,
+  LanguageMenuButton,
+  MuteButton,
+  PlaybackRateSubMenu,
+  PlayButton,
+  QualitySubMenu,
+  SeekBar,
+  SettingsMenuButton,
+  Spacer,
+  TimeLabel,
+  UiContainer,
+} from '@theoplayer/react-native-ui';
+
+const playerConfig: PlayerConfiguration = {
+  license: undefined, // Add your THEOplayer React Native license key here
+};
+
+const LOG_TAG = 'THEOVega';
+
+const DEFAULT_VEGA_THEME = {
+  ...DEFAULT_THEOPLAYER_THEME,
+  fadeAnimationTimoutMs: Infinity,
+  text: {
+    textAlign: 'center',
+    alignSelf: 'center',
+    fontSize: 22,
+  } as TextStyle,
+  dimensions: {
+    controlBarHeight: 60,
+    centerControlBarHeight: 72,
+  },
+};
+
+export const PlayerScreen = ({
+  // navigation,
+  route,
+}: StackScreenProps<AppStackParamList, Screens.PLAYER_SCREEN>) => {
+  const {stream} = route.params;
+  const [player, setPlayer] = useState<THEOplayer | undefined>(undefined);
+  const styles = getStyles();
+
+  const onPlayerReady = async (_player: THEOplayer) => {
+    console.log(LOG_TAG, `player ready v${(await sdkVersions()).rn}`);
+    setPlayer(_player);
+
+    _player.addEventListener(PlayerEventType.SOURCE_CHANGE, console.log);
+    _player.addEventListener(PlayerEventType.PLAY, console.log);
+    _player.addEventListener(PlayerEventType.PLAYING, console.log);
+    _player.addEventListener(PlayerEventType.ERROR, console.log);
+
+    _player.autoplay = true;
+    _player.source = stream.sourceDescription;
+  };
+
+  return (
+    <View style={styles.container}>
+      <THEOplayerView config={playerConfig} onPlayerReady={onPlayerReady}>
+        {player && (
+          <UiContainer
+            theme={DEFAULT_VEGA_THEME}
+            player={player}
+            behind={<CenteredDelayedActivityIndicator size={50} />}
+            top={
+              <AutoFocusGuide>
+                <ControlBar>
+                  <Spacer />
+                  <LanguageMenuButton />
+                  <SettingsMenuButton>
+                    <QualitySubMenu />
+                    <PlaybackRateSubMenu />
+                  </SettingsMenuButton>
+                </ControlBar>
+              </AutoFocusGuide>
+            }
+            center={<CenteredControlBar middle={<PlayButton />} />}
+            bottom={
+              <AutoFocusGuide>
+                <ControlBar>
+                  <SeekBar />
+                </ControlBar>
+                <ControlBar>
+                  <MuteButton />
+                  <TimeLabel showDuration={true} />
+                  <Spacer />
+                </ControlBar>
+              </AutoFocusGuide>
+            }
+          />
+        )}
+      </THEOplayerView>
+    </View>
+  );
+};
+
+const getStyles = () =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+    },
+  });
