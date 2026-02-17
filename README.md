@@ -23,19 +23,19 @@ apps for Fire TV devices running the Vega OS. With Vega, your app can run on mul
 
 ## Features
 
-| Feature                              | Supported | Notes                                                                                                                     |
-|--------------------------------------|-----------|---------------------------------------------------------------------------------------------------------------------------|
-| HLS (CMAF) streams                   | &check;   |                                                                                                                           |
-| HLS (TS) streams                     | &check;   | Using a Turbo module hosting THEO's own transmuxing functionality.                                                        |
-| DASH streams                         | &check;   |                                                                                                                           |
-| Adaptive Bitrate Streaming           | &check;   |                                                                                                                           |
-| Content Protection (DRM)             | &check;   |                                                                                                                           |
-| Subtitles & Closed Captions          | &check;   | `THEOplayerCaptionsView` is used instead of Amazon's `KeplerCaptionsView`, to allow more flexibility and caption styling. |
-| Autoplay                             | &check;   |                                                                                                                           |
-| `@theoplayer/react-native-drm`       | &check;   | DRM connector support is available as of v0.1.0-pre12.                                                                    |
-| Progressive MP4, MP3                 | &check;   | Planned for Q4                                                                                                            |
-| Advertisement                        | &cross;   | In progress                                                                                                               |
-| `@theoplayer/react-native-ui`        | &check;   |                                                                                                                           |
+| Feature                        | Supported | Notes                                                                                                                     |
+|--------------------------------|-----------|---------------------------------------------------------------------------------------------------------------------------|
+| HLS (CMAF) streams             | &check;   |                                                                                                                           |
+| HLS (TS) streams               | &check;   | Using a Turbo module hosting THEO's own transmuxing functionality.                                                        |
+| DASH streams                   | &check;   |                                                                                                                           |
+| Adaptive Bitrate Streaming     | &check;   |                                                                                                                           |
+| Content Protection (DRM)       | &check;   |                                                                                                                           |
+| Subtitles & Closed Captions    | &check;   | `THEOplayerCaptionsView` is used instead of Amazon's `KeplerCaptionsView`, to allow more flexibility and caption styling. |
+| Autoplay                       | &check;   |                                                                                                                           |
+| `@theoplayer/react-native-drm` | &check;   | DRM connector support is available as of v0.1.0-pre12.                                                                    |
+| Progressive MP4, MP3           | &check;   |                                                                                                                           |
+| Advertisement                  | &check;   | Client-side ad insertion (CSAI) through [Logix Google IMA Ads Manager](./doc/ads.md).                                     |
+| `@theoplayer/react-native-ui`  | &check;   |                                                                                                                           |
 
 ### Getting Started
 
