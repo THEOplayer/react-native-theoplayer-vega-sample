@@ -1,6 +1,8 @@
 {
-  "name": "@amazon-devices/theovegademo",
-  "version": "0.0.2",
+  "name": "@theoplayer/vega-demo",
+  "version": "0.0.0",
+  "author": "Dolby Laboratories, Inc.",
+  "private": true,
   "files": [
     "dist"
   ],
@@ -9,16 +11,16 @@
     "start": "react-native start",
     "app:debug": "npm-run-all build:debug install:debug app:launch",
     "app:release": "npm-run-all build:release install:release app:launch",
-    "app:launch": "kepler device launch-app",
-    "app:terminate": "kepler device terminate-app",
-    "app:uninstall": " kepler device uninstall-app",
+    "app:launch": "vega device launch-app --directory .",
+    "app:terminate": "vega device terminate-app --directory .",
+    "app:uninstall": " vega device uninstall-app --directory .",
     "app:relaunch": "npm run app:terminate; npm run app:launch",
     "lint": "eslint src --ext .ts,.tsx",
     "lint:fix": "eslint src --ext .ts,.tsx --fix",
     "build:debug": "react-native build-kepler --build-type Debug",
-    "install:debug": "kepler device install-app --directory . --buildType Debug",
+    "install:debug": "vega device install-app --directory . --buildType Debug",
     "build:release": "react-native build-kepler --build-type Release",
-    "install:release": "kepler device install-app --directory . --buildType Release",
+    "install:release": "vega device install-app --directory . --buildType Release",
     "build": "npm-run-all build:release",
     "release": "npm-run-all lint test build:app"
   },
@@ -26,14 +28,16 @@
     "@amazon-devices/kepler-media-controls": "^1.0.17",
     "@amazon-devices/react-native-kepler": "^2",
     "@amazon-devices/react-native-w3cmedia": "^2",
+    "@amazon-devices/webview": "^3.3.1769932800",
+    "@logituit/logix-ads-manager": "file:lib/logituit-logix-ads-manager-0.2.2.tgz",
     "@amazon-devices/react-navigation__core": "^2",
     "@amazon-devices/react-navigation__native": "^2",
     "@amazon-devices/react-navigation__stack": "^2",
     "@theoplayer/react-native-drm": "^1.10.0",
     "@theoplayer/react-native-ui": "^0.21.2",
-    "@theoplayer/react-native-vega": "file:lib/theoplayer-react-native-vega-1.0.0-beta.19.tgz",
+    "@theoplayer/react-native-vega": "file:lib/theoplayer-react-native-vega-1.0.0-beta.20.tgz",
     "@theoplayer/theomux-vega": "file:lib/theoplayer-theomux-vega-1.0.0.tgz",
-    "@theoplayer/vega": "file:lib/theoplayer-vega-1.0.0-beta.19.tgz",
+    "@theoplayer/vega": "file:lib/theoplayer-vega-1.0.0-beta.20.tgz",
     "react": "18.2.0",
     "react-native": "0.72.0",
     "react-native-svg": "npm:@amazon-devices/react-native-svg@^2.0.1758683737"
@@ -68,7 +72,7 @@
   },
   "kepler": {
     "projectType": "application",
-    "appName": "THEOVegaDemo",
+    "appName": "OptiViewVegaDemo",
     "targets": [
       "tv"
     ]

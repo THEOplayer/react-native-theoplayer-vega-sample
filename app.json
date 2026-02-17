@@ -1,5 +1,5 @@
 {
   "//": "The declared app name must follow this pattern to be KRL-compatible",
-  "name": "com.amazondeveloper.theovegademo.main",
-  "displayName": "THEOVegaDemo"
+  "name": "com.dolby.optiview.vegademo.main",
+  "displayName": "OptiViewVegaDemo"
 }

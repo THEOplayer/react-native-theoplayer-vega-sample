@@ -7,7 +7,7 @@ schema-version = 1                              # [required] Schema version used
 [package]
 title = "THEOplayer Vega Demo"                  # [required] Human readable title of the app.
 version = "0.1.0"                               # [required] Version string of the app, recommended to use semver, but any other string may be used.
-id = "com.amazondeveloper.theovegademo"         # [required] Package identifier, used as a primary identifier for the app on Vega devices and Appstore.
+id = "com.dolby.optiview.vegademo"              # [required] Package identifier, used as a primary identifier for the app on Vega devices and Appstore.
                                                 #            Existing FireTV app developers with apps on FireOS devices
                                                 #            must reuse their existing application id to ensure existing
                                                 #            Amazon integrations, viz. IAP, continue to work.
@@ -19,7 +19,7 @@ icon = "@image/app_icon.png"                    # [required] Image file to be us
 [components]
 
 [[components.interactive]]
-id = "com.amazondeveloper.theovegademo.main"    # [required] Unique component identifier
+id = "com.dolby.optiview.vegademo.main"         # [required] Unique component identifier
 runtime-module = "/com.amazon.kepler.keplerscript.runtime.loader_2@IKeplerScript_2_0"
 launch-type = "singleton"                       # [optional] Declares that only one running instance of this app component is created,
                                                 #            new invocations always reference the existing instance.
@@ -43,8 +43,8 @@ categories = [
 ## ------------------------------------------------------------------------------
 [processes]
 
-[[processes.group]]                                                                     # [required] Run the required service within a different process.
-component-ids = ["com.amazondeveloper.theovegademo.main"]                               # [required] Declares the app components that run within this process together.
+[[processes.group]]                                                        # [required] Run the required service within a different process.
+component-ids = ["com.dolby.optiview.vegademo.main"]                       # [required] Declares the app components that run within this process together.
 
 ## ------------------------------------------------------------------------------
 ## End of [processes] section
@@ -60,6 +60,10 @@ id = "com.amazon.inputmethod.service"
 
 [[wants.service]]
 id = "com.amazon.kepler.pcon.service.main"
+
+# Web renderer service for rendering web content
+[[wants.service]]
+id = "com.amazon.webview.renderer_service"
 
 # ------------------------------------------------------------------------------
 # MediaPlayer/MediaTransform
@@ -182,7 +186,7 @@ id = "com.amazon.gipc.uuid.*"
 key = "interface.provider"                                  # `interface.provider` designates a component that provides implementation of certain interfaces
                                                             #   These app provided interfaces implement required functions to provide data for Amazon service
                                                             #   integrations. They may also register listeners for event callbacks.
-component-id = "com.amazondeveloper.theovegademo.main"      # Declares the component that provides the implementation of the interfaces.
+component-id = "com.dolby.optiview.vegademo.main"           # Declares the component that provides the implementation of the interfaces.
 
 # ------------------------------------------------------------------------------
 # Vega Media Controls (VMC)
