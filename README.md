@@ -44,6 +44,7 @@ It demonstrates how to set up and use the `@theoplayer/react-native-vega` packag
 
 - [Building the example application](./doc/example-app.md)
 - Knowledge Base
+  - [Advertisements](./doc/ads.md)
   - [Useful CLI commands](./doc/cli_commands.md)
 
 ### Documentation and API Reference
