@@ -1,4 +1,5 @@
 import {ContentType, StreamDescription, StreamType} from './StreamDescription';
+import {AdIntegrationKind} from 'react-native-theoplayer';
 
 export const SOURCES: StreamDescription[] = [
   {
@@ -14,6 +15,31 @@ export const SOURCES: StreamDescription[] = [
         {
           src: 'https://dash.akamaized.net/dash264/TestCasesHD/2a/qualcomm/1/MultiResMPEG2.mpd',
           type: 'application/dash+xml',
+        },
+      ],
+    },
+  },
+  {
+    id: 'dash01ima',
+    title: 'Elephants Dream (Preroll Ad with IMA)',
+    streamType: StreamType.dash,
+    contentType: ContentType.vod,
+    isContentProtected: false,
+    hasCaptions: false,
+    isMultiPeriod: false,
+    sourceDescription: {
+      sources: [
+        {
+          src: 'https://dash.akamaized.net/dash264/TestCasesHD/2a/qualcomm/1/MultiResMPEG2.mpd',
+          type: 'application/dash+xml',
+        },
+      ],
+      ads: [
+        {
+          integration: AdIntegrationKind.google_ima,
+          sources: {
+            src: 'https://cdn.theoplayer.com/demos/ads/vast/dfp-preroll-no-skip.xml',
+          },
         },
       ],
     },
