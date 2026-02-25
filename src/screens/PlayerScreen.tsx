@@ -3,11 +3,12 @@ import {StyleSheet, TextStyle, View} from 'react-native';
 import {StackScreenProps} from '@amazon-devices/react-navigation__stack';
 import {AppStackParamList, Screens} from '../navigation/nagivation';
 import {
-  PlayerConfiguration,
   PlayerEventType,
-  THEOplayer,
   sdkVersions,
+  THEOplayer,
   THEOplayerView,
+  VegaFeatures,
+  VegaPlayerConfiguration,
 } from '@theoplayer/react-native-vega';
 import {
   AutoFocusGuide,
@@ -27,8 +28,9 @@ import {
   UiContainer,
 } from '@theoplayer/react-native-ui';
 
-const playerConfig: PlayerConfiguration = {
+const playerConfig: VegaPlayerConfiguration = {
   license: undefined, // Add your THEOplayer React Native license key here
+  features: [VegaFeatures.LOGIX_IMA_ADS],
 };
 
 const LOG_TAG = 'THEOVega';

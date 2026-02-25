@@ -37,6 +37,19 @@ In your app's `manifest.toml` file, also include the following service:
 id = "com.amazon.webview.renderer_service"
 ```
 
+### Player configuration
+
+The Logix IMA Ads Manager is configured as a feature flag. This way it can be disabled when not needed, which can save 
+resources and improve performance.
+Enable it through the player's configuration:
+
+```tsx
+const playerConfig: VegaPlayerConfiguration = {
+  // ...
+  features: [VegaFeatures.LOGIX_IMA_ADS],
+};
+```
+
 ### Source description
 
 When providing the player with a source that includes a list of ads, make sure to
