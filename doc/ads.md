@@ -139,6 +139,5 @@ See [AdEvent](https://theoplayer.github.io/react-native-theoplayer/api/interface
 
 The following list of known issues will be addressed in the future:
 
-- If the player is configured without `autoplay`, which enables starting play-out as soon as the player receives a source, a pre-roll ad could start playing after a small delay. In this case play-out of the content would already have started.
 - On a Vega virtual device, some ads may fail to play.
 - In an adbreak with multiple ads, subsequent ads sometimes fail to play.
